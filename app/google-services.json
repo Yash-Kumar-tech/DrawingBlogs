@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1085288042076",
+    "project_id": "drawingblog-4f252",
+    "storage_bucket": "drawingblog-4f252.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085288042076:android:6216ecbae6762e5570a099",
+        "android_client_info": {
+          "package_name": "com.yashkumartech.drawingblogs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085288042076-09hgtgmsis4ma749482lauolkdhuoe0v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnIsgsjci_gKGnwgzdIglqRlnFtp2BFg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085288042076-09hgtgmsis4ma749482lauolkdhuoe0v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
