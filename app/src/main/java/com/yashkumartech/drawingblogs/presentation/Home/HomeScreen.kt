@@ -12,34 +12,32 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.yashkumartech.drawingblogs.util.PostObject
 import com.yashkumartech.drawingblogs.presentation.Post
-import com.yashkumartech.drawingblogs.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination
 fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    navController: NavHostController,
 ) {
     val state by viewModel.state.collectAsState()
     Scaffold(
         topBar = {
             SmallTopAppBar(
                 title = {
-                    Text("Hello ${state.uid}")
+                    Text("Hello ${state.userName}")
                 },
                 actions = {
                     IconButton(
                         onClick = {
                             val auth = Firebase.auth
                             auth.signOut()
-                            navigator.navigateUp()
+                            navController.popBackStack()
                         }
                     ) {
                         Icon(Icons.Default.ExitToApp, contentDescription = null)

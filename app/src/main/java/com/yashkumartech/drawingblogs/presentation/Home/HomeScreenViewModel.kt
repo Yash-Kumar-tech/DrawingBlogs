@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +17,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,22 +57,23 @@ class HomeScreenViewModel @Inject  constructor(
                             _state.value = state.value.copy(
                                 userName = "Error"
                             )
-                            Log.d("UserViewModel namee", _state.value.userName)
                         }
                         is Resource.Loading -> {
                             _state.value = _state.value.copy(
                                 userName = "Loading"
                             )
-                            Log.d("UserViewModel namel", _state.value.userName)
                         }
                         is Resource.Success -> {
                             result.data?.let { userName ->
                                 _state.value = HomeScreenState(
                                     uid = state.value.uid,
-                                    userName = userName,
+                                    userName = userName.replaceFirstChar {
+                                        if (it.isLowerCase()) it.titlecase(
+                                            Locale.getDefault()
+                                        ) else it.toString()
+                                    },
                                     items = emptyList()
                                 )
-                                Log.d("userName Success", state.value.userName)
                             }
                         }
                     }

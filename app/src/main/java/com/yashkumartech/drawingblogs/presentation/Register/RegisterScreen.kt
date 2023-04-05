@@ -18,19 +18,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.yashkumartech.drawingblogs.presentation.destinations.HomeScreenDestination
-import com.yashkumartech.drawingblogs.presentation.destinations.LoginScreenDestination
 import com.yashkumartech.drawingblogs.presentation.Home.HomeScreenViewModel
 
 @Composable
-@Destination
 fun RegisterScreen(
     userViewModel: HomeScreenViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    navController: NavHostController
 ) {
     val context = LocalContext.current
     val userName = remember { mutableStateOf("") }
@@ -86,7 +83,7 @@ fun RegisterScreen(
                         if(it.isSuccessful) {
                             userViewModel.createUser(auth.currentUser, userName.value)
                             Toast.makeText(context, "Registered successfully", Toast.LENGTH_SHORT).show()
-                            navigator.navigate(HomeScreenDestination)
+//                            navigator.navigate(HomeScreenDestination)
                         } else {
                             Log.d("User signup", it.exception.toString())
                             Toast.makeText(context, "Invalid values", Toast.LENGTH_SHORT).show()
@@ -101,7 +98,7 @@ fun RegisterScreen(
         Spacer(modifier = Modifier.height(16.dp))
         TextButton(
             onClick = {
-                navigator.navigate(LoginScreenDestination)
+//                navigator.navigate(LoginScreenDestination)
             }
         ) {
             Text("Already have an account? Login here")

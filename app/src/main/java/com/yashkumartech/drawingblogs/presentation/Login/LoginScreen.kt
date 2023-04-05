@@ -14,20 +14,19 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.yashkumartech.drawingblogs.presentation.Home.HomeScreenViewModel
-import com.yashkumartech.drawingblogs.presentation.destinations.HomeScreenDestination
-import com.yashkumartech.drawingblogs.presentation.destinations.RegisterScreenDestination
+import com.yashkumartech.drawingblogs.util.Routes
 
 
 @Composable
-@Destination(start = true)
 fun LoginScreen(
     viewModel: HomeScreenViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator,
+    navController: NavHostController
 ) {
     val context = LocalContext.current
     val email = remember { mutableStateOf("") }
@@ -72,7 +71,8 @@ fun LoginScreen(
                     ).addOnCompleteListener {
                         if(it.isSuccessful) {
                             viewModel.setUser(auth.currentUser)
-                            navigator.navigate(HomeScreenDestination)
+//                            navigator.navigate(HomeScreenDestination)
+                            navController.navigate(Routes.Home.route)
                         } else {
                             Toast.makeText(context, "Incorrect credentials", Toast.LENGTH_SHORT).show()
                         }
@@ -86,7 +86,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         TextButton(
             onClick = {
-                navigator.navigate(RegisterScreenDestination)
+//                navigator.navigate(RegisterScreenDestination)
             }
         ) {
             Text("Don't have an account yet? Sign up by clicking here")
