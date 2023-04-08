@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val viewModel = hiltViewModel<HomeScreenViewModel>()
                     NavHost(navController = navController, startDestination = Routes.Login.route) {
-                        composable(Routes.SignUp.route) {
+                        composable(Routes.register.route) {
                             RegisterScreen(userViewModel = viewModel, navController = navController)
                         }
                         composable(Routes.Login.route) {

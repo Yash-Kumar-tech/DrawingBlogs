@@ -87,6 +87,7 @@ fun LoginScreen(
         TextButton(
             onClick = {
 //                navigator.navigate(RegisterScreenDestination)
+                navController.navigate(Routes.Register.Route)
             }
         ) {
             Text("Don't have an account yet? Sign up by clicking here")

@@ -84,6 +84,7 @@ fun RegisterScreen(
                             userViewModel.createUser(auth.currentUser, userName.value)
                             Toast.makeText(context, "Registered successfully", Toast.LENGTH_SHORT).show()
 //                            navigator.navigate(HomeScreenDestination)
+                            navController.navigate(Routes.Home.Route)
                         } else {
                             Log.d("User signup", it.exception.toString())
                             Toast.makeText(context, "Invalid values", Toast.LENGTH_SHORT).show()
@@ -99,6 +100,7 @@ fun RegisterScreen(
         TextButton(
             onClick = {
 //                navigator.navigate(LoginScreenDestination)
+                navController.navigate(Routes.Login.Route)
             }
         ) {
             Text("Already have an account? Login here")
