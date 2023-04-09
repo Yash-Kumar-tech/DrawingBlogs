@@ -23,6 +23,7 @@ import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.yashkumartech.drawingblogs.presentation.Home.HomeScreenViewModel
+import com.yashkumartech.drawingblogs.util.Routes
 
 @Composable
 fun RegisterScreen(
@@ -84,7 +85,7 @@ fun RegisterScreen(
                             userViewModel.createUser(auth.currentUser, userName.value)
                             Toast.makeText(context, "Registered successfully", Toast.LENGTH_SHORT).show()
 //                            navigator.navigate(HomeScreenDestination)
-                            navController.navigate(Routes.Home.Route)
+                            navController.navigate(Routes.Home.route)
                         } else {
                             Log.d("User signup", it.exception.toString())
                             Toast.makeText(context, "Invalid values", Toast.LENGTH_SHORT).show()
@@ -100,7 +101,7 @@ fun RegisterScreen(
         TextButton(
             onClick = {
 //                navigator.navigate(LoginScreenDestination)
-                navController.navigate(Routes.Login.Route)
+                navController.navigate(Routes.Login.route)
             }
         ) {
             Text("Already have an account? Login here")
