@@ -81,6 +81,7 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
     implementation 'com.google.dagger:hilt-android:2.45'
     implementation 'io.github.raamcosta.compose-destinations:core:1.8.38-beta'
+    implementation 'com.google.accompanist:accompanist-flowlayout:0.31.0-alpha'
     ksp 'io.github.raamcosta.compose-destinations:ksp:1.8.38-beta'
     kapt 'com.google.dagger:hilt-android-compiler:2.45'
     testImplementation 'junit:junit:4.13.2'

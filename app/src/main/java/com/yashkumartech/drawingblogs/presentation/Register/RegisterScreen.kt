@@ -18,16 +18,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.yashkumartech.drawingblogs.presentation.Home.HomeScreenViewModel
+import com.yashkumartech.drawingblogs.presentation.Home.UserViewModel
 import com.yashkumartech.drawingblogs.util.Routes
 
 @Composable
 fun RegisterScreen(
-    userViewModel: HomeScreenViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
     val context = LocalContext.current

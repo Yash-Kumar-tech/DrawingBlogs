@@ -1,13 +1,9 @@
-package com.yashkumartech.drawingblogs.presentation
+package com.yashkumartech.drawingblogs.presentation.Home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ThumbUp
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,15 +13,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.yashkumartech.drawingblogs.util.PostObject
-import org.checkerframework.checker.units.qual.min
 
 @Composable
 fun Post(
-    postDetails: PostObject
+    postDetails: PostObject,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier
@@ -50,16 +44,34 @@ fun Post(
             Text(postDetails.title)
             Spacer(modifier = Modifier.height(8.dp))
             Text(postDetails.description, maxLines = 2, style = MaterialTheme.typography.bodyMedium)
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            ) {
-                Icon(Icons.Default.ThumbUp, contentDescription = null)
-                Icon(Icons.Default.Favorite, contentDescription = null)
-            }
+//            Spacer(modifier = Modifier.height(8.dp))
+//            Row(
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(horizontal = 16.dp)
+//            ) {
+//                IconButton(
+//                    onClick = {}
+//                ) {
+//                    Icon(
+//                        Icons.Default.Done,
+//                        contentDescription = null,
+//                    )
+//                }
+//                IconButton(
+//                    onClick = {
+//                        postDetails.isLiked = !postDetails.isLiked
+//                        Log.d("PostItem", "Like button clicked ${postDetails.isLiked}")
+//                    }
+//                ) {
+//                    Icon(
+//                        Icons.Default.Favorite,
+//                        contentDescription = null,
+//                        tint = if(postDetails.isLiked) Color.Red else MaterialTheme.colorScheme.onSecondaryContainer
+//                    )
+//                }
+//            }
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
