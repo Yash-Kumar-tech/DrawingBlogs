@@ -9,13 +9,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.yashkumartech.drawingblogs.presentation.Post.PostViewModel
@@ -25,6 +29,7 @@ import com.yashkumartech.drawingblogs.util.Routes
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    lifecycleOwner: LifecycleOwner,
     homeScreenViewModel: UserViewModel = hiltViewModel(),
     postViewModel: PostViewModel = hiltViewModel(),
     navController: NavHostController,
@@ -41,8 +46,6 @@ fun HomeScreen(
                 actions = {
                     IconButton(
                         onClick = {
-                            val auth = Firebase.auth
-                            auth.signOut()
                             navController.popBackStack()
                         }
                     ) {
@@ -53,8 +56,26 @@ fun HomeScreen(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                 )
             )
-        }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(Routes.Upload.route)
+                },
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = "Add")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center
     ) { innerPadding ->
+//        DisposableEffect(lifecycleOwner) {
+//            onDispose {
+//                if(navController.currentDestination != navController.findDestination(Routes.Post.route)) {
+//                    Log.d("Dispose", "HomeScreen onDispose Called")
+//                    homeScreenViewModel.removeUser()
+//                }
+//            }
+//        }
         if(state.isLoading) {
             Column {
                 CircularProgressIndicator(modifier = Modifier.fillMaxSize(0.5f))

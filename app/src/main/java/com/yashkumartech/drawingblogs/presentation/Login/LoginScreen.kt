@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,6 +30,7 @@ fun LoginScreen(
     val context = LocalContext.current
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val maxWidth = 400.dp
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,7 +38,10 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Login", fontSize = 24.sp)
+        Text(
+            text = "Login",
+            fontSize = 24.sp
+        )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = email.value,
@@ -45,7 +50,9 @@ fun LoginScreen(
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Email
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .widthIn(max = maxWidth)
+                .fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
@@ -55,40 +62,45 @@ fun LoginScreen(
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Password
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = {
-                if(email.value.isEmpty() || password.value.isEmpty()) {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                } else {
-                    val auth = Firebase.auth
-                    auth.signInWithEmailAndPassword(
-                        email.value, password.value
-                    ).addOnCompleteListener {
-                        if(it.isSuccessful) {
-                            viewModel.setUser(auth.currentUser)
-//                            navigator.navigate(HomeScreenDestination)
-                            navController.navigate(Routes.Home.route)
-                        } else {
-                            Toast.makeText(context, "Incorrect credentials", Toast.LENGTH_SHORT).show()
+        Box (Modifier.widthIn(max = maxWidth)){
+            Button(
+                onClick = {
+                    if (email.value.isEmpty() || password.value.isEmpty()) {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val auth = Firebase.auth
+                        auth.signInWithEmailAndPassword(
+                            email.value, password.value
+                        ).addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                viewModel.setUser(auth.currentUser)
+                                navController.navigate(Routes.Home.route)
+                            } else {
+                                Toast.makeText(context, "Incorrect credentials", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
                     }
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "Login")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(text = "Login")
+            }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        TextButton(
-            onClick = {
-//                navigator.navigate(RegisterScreenDestination)
-                navController.navigate(Routes.Register.route)
+        Box(modifier = Modifier.widthIn(max = maxWidth)) {
+            TextButton(
+                onClick = {
+                    navController.navigate(Routes.Register.route)
+                },
+                Modifier.fillMaxWidth()
+            ) {
+                Text("Don't have an account yet? Sign up by clicking here")
             }
-        ) {
-            Text("Don't have an account yet? Sign up by clicking here")
         }
     }
 }

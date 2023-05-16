@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.yashkumartech.drawingblogs.domain.repositories.PostRepository
 import com.yashkumartech.drawingblogs.domain.repositories.UserRepository
 import com.yashkumartech.drawingblogs.util.Resource
@@ -45,7 +47,7 @@ class UserViewModel @Inject  constructor(
     private fun getUserName() {
         viewModelScope.launch {
             repository
-                .getUserName(FirebaseAuth.getInstance().currentUser?.uid)
+                .getUserName()
                 .collect { result ->
                     when(result) {
                         is Resource.Error -> {
@@ -73,6 +75,13 @@ class UserViewModel @Inject  constructor(
                     }
                 }
         }
+    }
+
+    fun removeUser() {
+        _state.value.userName = ""
+        _state.value.stat = "None"
+        _state.value.uid = ""
+        Firebase.auth.signOut()
     }
 
     fun getPosts() {

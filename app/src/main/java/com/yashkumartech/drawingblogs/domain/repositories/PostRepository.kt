@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface PostRepository {
 
     suspend fun getPosts(): Flow<Resource<List<PostObject>>>
-    suspend fun like(user: FirebaseUser, post: Int): Resource<Boolean>
+    suspend fun uploadPost(post: PostObject): Flow<Resource<Boolean>>
 }

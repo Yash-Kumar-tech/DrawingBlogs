@@ -21,17 +21,14 @@ class PostViewModel @Inject constructor(
     val title = mutableStateOf("Title")
     val categories = mutableListOf<String>()
     val creator = mutableStateOf("Creator")
-
-    fun like(user: FirebaseUser, post: Int): Boolean {
-        return true
-    }
+    val dateCreated = mutableStateOf("DD/MM/YYYY")
 
     fun setPost(post: PostObject) {
         imageUrl.value = post.imageUrl
         title.value = post.title
         categories.removeAll(categories)
-        categories.addAll(post.description.split(" "))
-        creator.value = post.dateCreated
+        categories.addAll(post.categories.split(","))
+        creator.value = post.creator
+        dateCreated.value = post.dateCreated
     }
-
 }

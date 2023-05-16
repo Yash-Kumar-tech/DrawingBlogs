@@ -1,30 +1,21 @@
 package com.yashkumartech.drawingblogs.data.repositories
 
 import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.yashkumartech.drawingblogs.domain.model.Response
 import com.yashkumartech.drawingblogs.domain.model.User
 import com.yashkumartech.drawingblogs.domain.repositories.UserRepository
 import com.yashkumartech.drawingblogs.util.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl: UserRepository {
     private val db = Firebase.firestore
-    private var name = ""
 
     override suspend fun createUser(user: FirebaseUser?, userName: String): Resource<Boolean> {
         return try {
@@ -44,7 +35,8 @@ class UserRepositoryImpl: UserRepository {
         return Resource.Success(true)
     }
 
-    override suspend fun getUserName(uid: String?): Flow<Resource<String>> {
+    override suspend fun getUserName(): Flow<Resource<String>> {
+        val uid = Firebase.auth.currentUser?.uid
         return flow {
             if(uid == null) {
                 emit(Resource.Error("Null"))

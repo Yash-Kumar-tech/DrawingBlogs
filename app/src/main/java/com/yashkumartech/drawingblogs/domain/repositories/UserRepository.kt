@@ -11,6 +11,6 @@ interface UserRepository {
 
     suspend fun setUser(user: FirebaseUser?): Resource<Boolean>
 
-    suspend fun getUserName(uid: String?): Flow<Resource<String>>
+    suspend fun getUserName(): Flow<Resource<String>>
 
 }

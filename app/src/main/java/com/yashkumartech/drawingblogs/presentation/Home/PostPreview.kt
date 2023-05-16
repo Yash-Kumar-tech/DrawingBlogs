@@ -43,7 +43,7 @@ fun Post(
             Spacer(modifier = Modifier.height(16.dp))
             Text(postDetails.title)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(postDetails.description, maxLines = 2, style = MaterialTheme.typography.bodyMedium)
+            Text(postDetails.categories, maxLines = 2, style = MaterialTheme.typography.bodyMedium)
 //            Spacer(modifier = Modifier.height(8.dp))
 //            Row(
 //                horizontalArrangement = Arrangement.SpaceBetween,

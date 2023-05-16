@@ -50,18 +50,27 @@ fun PostScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.height(40.dp)
+                    modifier = Modifier.height(60.dp)
                 ) {
                     AsyncImage(
                         model = viewModel.imageUrl.value,
                         contentDescription = null,
                         modifier = Modifier
-                            .width(40.dp)
+                            .width(60.dp)
                             .clip(CircleShape),
                         contentScale = ContentScale.FillBounds
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = viewModel.creator.value)
+                    Column(
+                        modifier = Modifier
+                            .height(60.dp)
+                            .padding(vertical = 5.dp),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        Text(text = viewModel.creator.value)
+                        Text(text = viewModel.dateCreated.value)
+                    }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 FlowRow{
