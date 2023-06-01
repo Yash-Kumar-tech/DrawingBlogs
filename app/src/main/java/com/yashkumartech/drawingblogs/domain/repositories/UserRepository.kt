@@ -7,10 +7,10 @@ import com.yashkumartech.drawingblogs.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
-    suspend fun createUser(user: FirebaseUser?, userName: String): Resource<Boolean>
+    suspend fun createUser(user: FirebaseUser?, userName: String, profilePhoto: String): Resource<Boolean>
 
     suspend fun setUser(user: FirebaseUser?): Resource<Boolean>
 
-    suspend fun getUserName(): Flow<Resource<String>>
+    suspend fun getUserDetails(uid: String): Flow<Resource<User>>
 
 }

@@ -6,4 +6,5 @@ sealed class Routes(val route: String) {
     object Home: Routes("homeScreen")
     object Post: Routes("postScreen")
     object Upload: Routes("uploadScreen")
+    object UserDetails: Routes("userDetails")
 }

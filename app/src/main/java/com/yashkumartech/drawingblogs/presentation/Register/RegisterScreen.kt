@@ -71,18 +71,18 @@ fun RegisterScreen(
     ) {
         BoxWithConstraints(
             modifier = Modifier
-                .clip(CircleShape)
                 .height(150.dp)
                 .aspectRatio(1f)
-                .background(Color.DarkGray)
         ) {
             AsyncImage(
                 model = selectedImageUri,
                 contentDescription = null,
                 modifier = Modifier
                     .clip(CircleShape)
-                    .height(120.dp),
-                contentScale = ContentScale.Fit
+                    .height(130.dp)
+                    .aspectRatio(1f)
+                    .background(Color.DarkGray),
+                contentScale = ContentScale.Crop
             )
             IconButton(
                 modifier = Modifier
@@ -153,7 +153,7 @@ fun RegisterScreen(
                         auth.createUserWithEmailAndPassword(email.value, password.value)
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
-                                    userViewModel.createUser(auth.currentUser, userName.value)
+                                    userViewModel.createUser(auth.currentUser, userName.value, selectedImageUri.toString())
                                     Toast.makeText(
                                         context,
                                         "Registered successfully",

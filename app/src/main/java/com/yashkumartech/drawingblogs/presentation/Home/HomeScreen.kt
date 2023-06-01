@@ -1,24 +1,34 @@
 package com.yashkumartech.drawingblogs.presentation.Home
 
+import android.net.Uri
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -42,6 +52,27 @@ fun HomeScreen(
             SmallTopAppBar(
                 title = {
                     Text("Hello ${state.userName}")
+                },
+                navigationIcon = {
+                    Button(
+                        onClick = {
+                            navController.navigate(Routes.UserDetails.route)
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Transparent
+                        )
+                    ) {
+                        AsyncImage(
+                            model = Uri.parse(state.profilePhoto),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .height(50.dp)
+                                .aspectRatio(1f)
+                                .background(Color.DarkGray),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
                 },
                 actions = {
                     IconButton(

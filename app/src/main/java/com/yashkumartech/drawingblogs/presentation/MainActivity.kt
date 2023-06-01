@@ -20,6 +20,7 @@ import com.yashkumartech.drawingblogs.presentation.Post.PostViewModel
 import com.yashkumartech.drawingblogs.presentation.Register.RegisterScreen
 import com.yashkumartech.drawingblogs.presentation.UploadPost.UploadScreen
 import com.yashkumartech.drawingblogs.presentation.UploadPost.UploadScreenViewModel
+import com.yashkumartech.drawingblogs.presentation.UserDetail.UserDetailScreen
 import com.yashkumartech.drawingblogs.ui.theme.DrawingBlogsTheme
 import com.yashkumartech.drawingblogs.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,6 +72,11 @@ class MainActivity : ComponentActivity() {
                                 lifecycleOwner = lifecycleOwner,
                                 navController = navController,
                                 uploadScreenViewModel = uploadScreenViewModel
+                            )
+                        }
+                        composable(Routes.UserDetails.route) {
+                            UserDetailScreen(
+                                navController = navController
                             )
                         }
                     }

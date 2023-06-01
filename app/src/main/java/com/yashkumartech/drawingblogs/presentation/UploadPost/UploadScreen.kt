@@ -60,6 +60,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.yashkumartech.drawingblogs.presentation.Home.UserViewModel
 import com.yashkumartech.drawingblogs.util.PostObject
 import java.time.LocalDate
@@ -212,7 +214,7 @@ fun UploadScreen(
                                     .now()
                                     .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
                                     .toString(),
-                                creator = state.userName
+                                creator = Firebase.auth.currentUser!!.uid
                             )
                         )
                 }

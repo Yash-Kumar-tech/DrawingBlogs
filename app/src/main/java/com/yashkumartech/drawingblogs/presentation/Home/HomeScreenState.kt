@@ -7,5 +7,6 @@ data class HomeScreenState(
     var userName: String = "",
     var posts: List<PostObject> = emptyList(),
     var isLoading: Boolean = false,
+    var profilePhoto: String = "",
     var stat: String = "None"
 )

@@ -53,7 +53,7 @@ fun PostScreen(
                     modifier = Modifier.height(60.dp)
                 ) {
                     AsyncImage(
-                        model = viewModel.imageUrl.value,
+                        model = viewModel.profilePhoto.value,
                         contentDescription = null,
                         modifier = Modifier
                             .width(60.dp)
@@ -68,7 +68,7 @@ fun PostScreen(
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        Text(text = viewModel.creator.value)
+                        Text(text = viewModel.creatorName.value)
                         Text(text = viewModel.dateCreated.value)
                     }
                 }

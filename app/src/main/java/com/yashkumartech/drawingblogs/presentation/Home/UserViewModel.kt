@@ -3,7 +3,6 @@ package com.yashkumartech.drawingblogs.presentation.Home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -25,14 +24,15 @@ class UserViewModel @Inject  constructor(
     private val _state = MutableStateFlow(HomeScreenState())
     val state: StateFlow<HomeScreenState> = _state
 
-    fun createUser(user: FirebaseUser?, userName: String?) {
+    fun createUser(user: FirebaseUser?, userName: String?, profilePhoto: String?) {
         viewModelScope.launch {
             _state.value = HomeScreenState(
                 uid = user?.uid!!,
                 userName = userName!!,
+                profilePhoto = profilePhoto!!,
                 posts = emptyList()
             )
-            repository.createUser(user, userName ?: "")
+            repository.createUser(user, userName ?: "", profilePhoto)
         }
     }
 
@@ -42,12 +42,12 @@ class UserViewModel @Inject  constructor(
             userName = state.value.userName,
             posts = emptyList()
         )
-        getUserName()
+        getUserDetails(user)
     }
-    private fun getUserName() {
+    private fun getUserDetails(user: FirebaseUser?) {
         viewModelScope.launch {
             repository
-                .getUserName()
+                .getUserDetails(user?.uid!!)
                 .collect { result ->
                     when(result) {
                         is Resource.Error -> {
@@ -61,14 +61,15 @@ class UserViewModel @Inject  constructor(
                             )
                         }
                         is Resource.Success -> {
-                            result.data?.let { userName ->
+                            result.data?.let { user ->
                                 _state.value = _state.value.copy(
                                     uid = state.value.uid,
-                                    userName = userName.replaceFirstChar {
+                                    userName = user.userName.replaceFirstChar {
                                         if (it.isLowerCase()) it.titlecase(
                                             Locale.getDefault()
                                         ) else it.toString()
-                                    }
+                                    },
+                                    profilePhoto = user.profilePhoto
                                 )
                             }
                         }

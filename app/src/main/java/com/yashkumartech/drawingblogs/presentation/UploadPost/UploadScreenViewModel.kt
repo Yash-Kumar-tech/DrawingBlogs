@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.yashkumartech.drawingblogs.domain.repositories.PostRepository
 import com.yashkumartech.drawingblogs.domain.repositories.UserRepository
 import com.yashkumartech.drawingblogs.presentation.Home.HomeScreenState
@@ -27,17 +29,18 @@ class UploadScreenViewModel @Inject constructor(
     val state: StateFlow<UploadScreenState> = _state
 
     init {
-        getUserName()
+        getUserDetails(Firebase.auth.currentUser!!.uid)
     }
-    private fun getUserName() {
+    private fun getUserDetails(uid: String) {
         viewModelScope.launch {
             userRepository
-                .getUserName()
+                .getUserDetails(uid)
                 .collect {result ->
                     when(result) {
                         is Success -> {
+                            val user = result.data!!
                             _state.value = _state.value.copy(
-                                userName = result.data!!.replaceFirstChar {
+                                userName = user.userName.replaceFirstChar {
                                     if (it.isLowerCase()) it.titlecase(
                                         Locale.getDefault()
                                     ) else it.toString()
