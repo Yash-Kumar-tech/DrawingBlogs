@@ -71,11 +71,13 @@ class MainActivity : ComponentActivity() {
                             UploadScreen(
                                 lifecycleOwner = lifecycleOwner,
                                 navController = navController,
+                                userViewModel = userViewModel,
                                 uploadScreenViewModel = uploadScreenViewModel
                             )
                         }
                         composable(Routes.UserDetails.route) {
                             UserDetailScreen(
+                                userViewModel = userViewModel,
                                 navController = navController
                             )
                         }

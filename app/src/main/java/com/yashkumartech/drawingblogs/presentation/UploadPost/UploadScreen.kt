@@ -73,8 +73,10 @@ import java.time.format.FormatStyle
 fun UploadScreen(
     lifecycleOwner: LifecycleOwner,
     navController: NavHostController,
+    userViewModel: UserViewModel = hiltViewModel(),
     uploadScreenViewModel: UploadScreenViewModel = hiltViewModel()
 ) {
+    val userState by userViewModel.state.collectAsState()
     val state by uploadScreenViewModel.state.collectAsState()
     val title = remember { mutableStateOf("") }
     val categoriesString = remember { mutableStateOf("") }
@@ -126,7 +128,7 @@ fun UploadScreen(
                 modifier = Modifier.height(40.dp)
             ) {
                 AsyncImage(
-                    model = "https://funart.pro/uploads/posts/2021-04/1618579960_52-funart_pro-p-oboi-fon-chistoe-nebo-anime-57.jpg",
+                    model = userState.profilePhoto,
                     contentDescription = null,
                     modifier = Modifier
                         .width(40.dp)
@@ -134,7 +136,7 @@ fun UploadScreen(
                     contentScale = ContentScale.FillBounds
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = state.userName)
+                Text(text = userState.userName)
             }
             Spacer(Modifier.height(8.dp))
             BoxWithConstraints(

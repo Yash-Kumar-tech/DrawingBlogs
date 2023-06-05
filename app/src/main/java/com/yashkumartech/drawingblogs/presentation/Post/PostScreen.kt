@@ -58,7 +58,7 @@ fun PostScreen(
                         modifier = Modifier
                             .width(60.dp)
                             .clip(CircleShape),
-                        contentScale = ContentScale.FillBounds
+                        contentScale = ContentScale.Crop
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Column(

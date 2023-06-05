@@ -99,14 +99,6 @@ fun HomeScreen(
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { innerPadding ->
-//        DisposableEffect(lifecycleOwner) {
-//            onDispose {
-//                if(navController.currentDestination != navController.findDestination(Routes.Post.route)) {
-//                    Log.d("Dispose", "HomeScreen onDispose Called")
-//                    homeScreenViewModel.removeUser()
-//                }
-//            }
-//        }
         if(state.isLoading) {
             Column {
                 CircularProgressIndicator(modifier = Modifier.fillMaxSize(0.5f))

@@ -28,8 +28,6 @@ class PostViewModel @Inject constructor(
     val creatorName = mutableStateOf("")
     val profilePhoto = mutableStateOf("")
 
-
-
     fun getUserDetails() {
         viewModelScope.launch {
             userRepository

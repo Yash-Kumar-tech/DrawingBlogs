@@ -27,10 +27,6 @@ class UploadScreenViewModel @Inject constructor(
 ): ViewModel() {
     private val _state = MutableStateFlow(UploadScreenState())
     val state: StateFlow<UploadScreenState> = _state
-
-    init {
-        getUserDetails(Firebase.auth.currentUser!!.uid)
-    }
     private fun getUserDetails(uid: String) {
         viewModelScope.launch {
             userRepository
