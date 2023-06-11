@@ -27,53 +27,25 @@ class UploadScreenViewModel @Inject constructor(
 ): ViewModel() {
     private val _state = MutableStateFlow(UploadScreenState())
     val state: StateFlow<UploadScreenState> = _state
-    private fun getUserDetails(uid: String) {
-        viewModelScope.launch {
-            userRepository
-                .getUserDetails(uid)
-                .collect {result ->
-                    when(result) {
-                        is Success -> {
-                            val user = result.data!!
-                            _state.value = _state.value.copy(
-                                userName = user.userName.replaceFirstChar {
-                                    if (it.isLowerCase()) it.titlecase(
-                                        Locale.getDefault()
-                                    ) else it.toString()
-                                }
-                            )
-                        }
-                        is Error -> {
-                            _state.value = _state.value.copy(
-                                userName = "Error"
-                            )
-                        }
-                        is Loading -> {
-                            _state.value = _state.value.copy(
-                                userName = "Loading"
-                            )
-                        }
-                    }
-                }
-        }
-    }
 
     fun uploadToFirebase(post: PostObject) {
         viewModelScope.launch {
             postRepository
                 .uploadPost(post)
                 .collect { result ->
-                    when(result) {
+                    when (result) {
                         is Error -> {
                             _state.value = _state.value.copy(
                                 state = "Error"
                             )
                         }
+
                         is Loading -> {
                             _state.value = _state.value.copy(
                                 state = "Uploading"
                             )
                         }
+
                         is Success -> {
                             _state.value = _state.value.copy(
                                 state = "Uploaded"
@@ -81,6 +53,7 @@ class UploadScreenViewModel @Inject constructor(
                         }
                     }
                 }
+            postRepository.getPosts()
 
         }
     }

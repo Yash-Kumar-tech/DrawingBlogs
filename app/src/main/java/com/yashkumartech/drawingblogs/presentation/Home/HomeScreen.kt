@@ -32,6 +32,7 @@ import coil.compose.AsyncImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.yashkumartech.drawingblogs.R
 import com.yashkumartech.drawingblogs.presentation.Post.PostViewModel
 import com.yashkumartech.drawingblogs.util.PostObject
 import com.yashkumartech.drawingblogs.util.Routes
@@ -63,7 +64,10 @@ fun HomeScreen(
                         )
                     ) {
                         AsyncImage(
-                            model = Uri.parse(state.profilePhoto),
+                            model = if(state.profilePhoto.isNotBlank())
+                                Uri.parse(state.profilePhoto)
+                            else
+                                R.drawable.user_profile_picture_placeholder,
                             contentDescription = null,
                             modifier = Modifier
                                 .clip(CircleShape)
@@ -77,6 +81,7 @@ fun HomeScreen(
                 actions = {
                     IconButton(
                         onClick = {
+                            homeScreenViewModel.removeUser()
                             navController.popBackStack()
                         }
                     ) {

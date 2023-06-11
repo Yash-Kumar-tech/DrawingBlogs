@@ -1,5 +1,6 @@
 package com.yashkumartech.drawingblogs.presentation.Post
 
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -16,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.yashkumartech.drawingblogs.R
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -53,7 +55,10 @@ fun PostScreen(
                     modifier = Modifier.height(60.dp)
                 ) {
                     AsyncImage(
-                        model = viewModel.profilePhoto.value,
+                        model = if(viewModel.profilePhoto.value.isNotBlank())
+                                    Uri.parse(viewModel.profilePhoto.value)
+                                else
+                                    R.drawable.user_profile_picture_placeholder,
                         contentDescription = null,
                         modifier = Modifier
                             .width(60.dp)
